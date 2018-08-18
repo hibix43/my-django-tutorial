@@ -2,8 +2,10 @@ from django.db import models
 
 class Question(models.Model):
     # 質問事項（テキストデータ）
+    # 変数名がデータベースの列名となる
     question_text = models.CharField(max_length=200)
     # 公開日（日時データ）
+    # 第一引数がデータベースの列名となる
     pub_date = models.DateTimeField('date published')
 
 class Choice(models.Model):
