@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.db.models import F
 from .models import Choice, Question
 
 def index(request):
@@ -30,7 +31,8 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
+        # F式を使うと、競合状態は発生しない
+        selected_choice.votes = F('votes') + 1
         selected_choice.save()
         # 成功したら結果ページへ。reverse()によりpoll/id/resultsを取得
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
