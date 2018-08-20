@@ -1,4 +1,6 @@
+import datetime
 from django.db import models
+from django.utils import timezone
 
 class Question(models.Model):
     # 質問事項（テキストデータ）
@@ -8,6 +10,13 @@ class Question(models.Model):
     # 第一引数がデータベースの列名となる
     pub_date = models.DateTimeField('date published')
 
+    def __str__(self):
+        return self.question_text
+
+    # Demo
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
 class Choice(models.Model):
     # ChoiseをQuestionに関連づける
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -16,3 +25,5 @@ class Choice(models.Model):
     # 投票数（整数データ）
     votes = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.choice_text
