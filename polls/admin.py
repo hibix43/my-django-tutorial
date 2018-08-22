@@ -18,6 +18,8 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
     # change list
     list_display = ('question_text', 'pub_date', 'was_published_recently')
+    list_filter = ['pub_date']
+    search_fields = ['question_text']
 
 # Modelごとに引数で渡す
 admin.site.register(Question, QuestionAdmin)

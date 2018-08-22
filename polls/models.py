@@ -17,6 +17,12 @@ class Question(models.Model):
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
+    # ソート
+    was_published_recently.admin_order_field = 'pub_date'
+    # boolean型であることを示す(文字列ではなく、記号で表示される)
+    was_published_recently.boolean = True
+    # 説明
+    was_published_recently.short_description = 'Published recently?'
 
 class Choice(models.Model):
     # ChoiseをQuestionに関連づける
