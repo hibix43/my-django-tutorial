@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question
+from .models import Question, Choice
 
 class QuestionAdmin(admin.ModelAdmin):
     # Adim編集フォームの並び順を指定
@@ -11,3 +11,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 # Modelごとに引数で渡す
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice)
