@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Question, Choice
 
-class ChoiceInline(admin.StackedInline):
+class ChoiceInline(admin.TabularInline):
     model = Choice
     # 余分に表示
     extra = 3
@@ -16,6 +16,8 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
     # XXInlineによりXX表示(ex:Stack>>列表示)
     inlines = [ChoiceInline]
+    # change list
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
 
 # Modelごとに引数で渡す
 admin.site.register(Question, QuestionAdmin)
